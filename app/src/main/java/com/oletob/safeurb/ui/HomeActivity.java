@@ -1,4 +1,4 @@
-package com.oletob.safeurb;
+package com.oletob.safeurb.ui;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -6,17 +6,20 @@ import android.location.Location;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.oletob.safeurb.R;
 import com.oletob.safeurb.model.LocationListener;
 
 public class HomeActivity extends AppCompatActivity implements MapFragment.OnFragmentInteractionListener,
@@ -29,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
     private FusedLocationProviderClient mFusedLocationClient;
     private Location lastLocation;
     private BottomNavigationView navView;
+    private MapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +43,16 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         navView.setOnNavigationItemSelectedListener(this);
+        mapFragment = MapFragment.newInstance(HomeActivity.this);
+
         loadLastLocation();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        return true;
     }
 
     @Override
@@ -48,7 +61,8 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
 
         if(requestCode == MY_APP_REQUEST_PERMISSION){
             int i = 0;
@@ -109,8 +123,9 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
     }
 
     private void setMapView(){
+
         getSupportFragmentManager().beginTransaction().
-                replace(R.id.frame_layout, MapFragment.newInstance(HomeActivity.this)).
+                replace(R.id.frame_layout, mapFragment).
                 addToBackStack("Map Fragment").commit();
     }
 
@@ -125,9 +140,9 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
             case R.id.navigation_map:
                 setMapView();
                 return true;
-            case R.id.navigation_notifications:
+            /*case R.id.navigation_notifications:
 
-                return true;
+                return true;*/
         }
         return false;
     }

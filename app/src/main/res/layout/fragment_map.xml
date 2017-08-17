@@ -1,8 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.oletob.safeurb.MapFragment">
+    tools:context="com.oletob.safeurb.ui.MapFragment">
 
     <!--<fragment
         android:id="@+id/safeurb_map"
@@ -11,9 +12,18 @@
         android:layout_height="match_parent"
         tools:context="com.oletob.safeurb.MainActivity" />-->
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnButtonMarker"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:src="@drawable/map_marker_radius"
+        app:backgroundTint="@android:color/holo_orange_light" />
+
     <com.google.android.gms.maps.MapView
         android:id="@+id/safeurb_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>
