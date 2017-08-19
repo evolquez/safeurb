@@ -5,21 +5,43 @@
     android:layout_height="match_parent"
     tools:context="com.oletob.safeurb.ui.MapFragment">
 
-    <!--<fragment
-        android:id="@+id/safeurb_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.oletob.safeurb.MainActivity" />-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_theif"
+        android:layout_marginBottom="130dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/assault"
+        app:backgroundTint="@color/colorPrimary"
+        android:visibility="invisible"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btnButtonMarker"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
-        android:src="@drawable/map_marker_radius"
-        app:backgroundTint="@android:color/holo_orange_light" />
+        android:id="@+id/fab_assault"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/assault"
+        android:visibility="invisible"
+        android:elevation="6dp"
+        app:backgroundTint="@color/colorPrimary"
+        app:pressedTranslationZ="12dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_action_menu"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/map_marker_radius"
+        android:elevation="6dp"
+        app:pressedTranslationZ="12dp"/>
+
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/safeurb_map"

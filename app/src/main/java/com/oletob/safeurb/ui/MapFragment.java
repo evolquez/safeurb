@@ -12,6 +12,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,8 +44,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     private View mView;
 
     public LocationListener locationInterface;
-    private FloatingActionButton btnMarker;
+    private FloatingActionButton fabActionMenu, fabAssault, fabTheif;
+    private Animation fabOpen, fabClose;
 
+    private boolean isOpen = false;
     public MapFragment() {
         // Required empty public constructor
     }
@@ -82,12 +86,34 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_map, container, false);
 
-        btnMarker = (FloatingActionButton) mView.findViewById(R.id.btnButtonMarker);
+        fabActionMenu   = (FloatingActionButton) mView.findViewById(R.id.fab_action_menu);
+        fabAssault      = (FloatingActionButton) mView.findViewById(R.id.fab_assault);
+        fabTheif        = (FloatingActionButton) mView.findViewById(R.id.fab_theif);
+        fabOpen         = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
+        fabClose        = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
 
-        btnMarker.setOnClickListener(new View.OnClickListener(){
+        fabActionMenu.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Testing floating button click event!", Toast.LENGTH_SHORT).show();
+            if(isOpen){
+
+                fabAssault.startAnimation(fabClose);
+                fabTheif.startAnimation(fabClose);
+
+                fabAssault.setClickable(false);
+                fabTheif.setClickable(false);
+
+                isOpen = false;
+
+            }else{
+                fabAssault.startAnimation(fabOpen);
+                fabTheif.startAnimation(fabOpen);
+
+                fabAssault.setClickable(true);
+                fabTheif.setClickable(true);
+
+                isOpen = true;
+            }
             }
         });
 
