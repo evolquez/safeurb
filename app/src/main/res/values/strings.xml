@@ -7,8 +7,12 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_location">Ubicación</string>
     <string name="title_activities">Actividades</string>
+    <string name="report_desc_hint">Describe lo sucedido...</string>
+    <string name="publish_report_title">Publicar Reporte</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="report_types">
+        <item>Asalto</item>
+        <item>Robo</item>
+    </string-array>
 
 </resources>

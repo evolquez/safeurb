@@ -12,8 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/assault"
-        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_theif"
+        app:backgroundTint="@color/theif_color"
         android:visibility="invisible"
         android:elevation="6dp"
         app:pressedTranslationZ="12dp"/>
@@ -25,10 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/assault"
+        app:srcCompat="@drawable/ic_assault"
         android:visibility="invisible"
         android:elevation="6dp"
-        app:backgroundTint="@color/colorPrimary"
+        app:backgroundTint="@color/assault_color"
         app:pressedTranslationZ="12dp"/>
 
     <android.support.design.widget.FloatingActionButton
@@ -46,6 +46,7 @@
     <com.google.android.gms.maps.MapView
         android:id="@+id/safeurb_map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center|end" />
 
 </FrameLayout>

@@ -2,6 +2,7 @@ package com.oletob.safeurb.ui;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,7 +120,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
             }
         });
 
+        fabAssault.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startReportActivity("assault");
+            }
+        });
+
+        fabTheif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startReportActivity("theif");
+            }
+        });
+
         return mView;
+    }
+
+    private void startReportActivity(String type) {
+        Intent i = new Intent(getActivity(), PublishReportActivity.class);
+        i.putExtra("type", type);
+        startActivity(i);
     }
 
 

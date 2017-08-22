@@ -2,7 +2,10 @@
 <resources>
     <color name="colorPrimary">#009688</color>
     <color name="colorPrimaryDark">#00796B</color>
-    <color name="colorAccent">#FF9800</color>
+    <color name="colorAccent">#009688</color>
     <color name="fab_assault_color">#00796B</color>
     <color name="fab_theif_color">#00796B</color>
+    <color name="assault_color">#f44336</color>
+    <color name="theif_color">#FF5722</color>
+    <color name="report_title_bg_color">#fd9727</color>
 </resources>

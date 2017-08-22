@@ -39,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.PublishReportActivity" android:parentActivityName=".ui.HomeActivity"></activity>
     </application>
 
 </manifest>
