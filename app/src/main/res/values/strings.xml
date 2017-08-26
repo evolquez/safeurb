@@ -12,6 +12,7 @@
     <string name="image_camera">Image Camera</string>
     <string name="publish_notice">El reporte se registrará desde tu ubicación actual para luego ser usado en el mapa.</string>
     <string name="publicar">Publicar</string>
+    <string name="image_taken">Image taken</string>
 
     <string-array name="report_types">
         <item>Asalto</item>

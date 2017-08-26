@@ -4,13 +4,19 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.oletob.safeurb.R;
 
@@ -20,8 +26,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class PublishReportActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
+public class PublishReportActivity extends AppCompatActivity implements View.OnClickListener,
+                                                                        DatePickerDialog.OnDateSetListener,
                                                                         TimePickerDialog.OnTimeSetListener{
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private SimpleDateFormat dateTimeFormat;
 
@@ -33,6 +42,8 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
     private Calendar calendarDate;
     private Calendar calendarTime;
     private TextView txtTitleAction;
+
+    private ImageButton btnTakePhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +64,9 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
         dateTimeFormat  = new SimpleDateFormat("dd-MM-yyyy hh:mm a", java.util.Locale.getDefault());
         dateFormat      = new SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault());
         timeFormat      = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
+
+        btnTakePhoto = (ImageButton)findViewById(R.id.btnTakePicture);
+        btnTakePhoto.setOnClickListener(this);
 
         setDateTime(dateTimeFormat.format(new Date()));
     }
@@ -99,6 +113,15 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
         fragment.show(getFragmentManager(), "time");
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnTakePicture:
+                this.dispatchTakePictureIntent();
+                break;
+        }
+    }
+
     public static class DatePickerFragment extends DialogFragment{
 
         @Override
@@ -126,4 +149,26 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
                     DateFormat.is24HourFormat(getActivity()));
         }
     }
+
+    private void dispatchTakePictureIntent() {
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+
+            Bundle extras       = data.getExtras();
+            Bitmap imageBitmap  = (Bitmap) extras.get("data");
+
+            ((ImageView)findViewById(R.id.imageTaken)).setImageBitmap(imageBitmap);
+        }
+    }
+
 }
