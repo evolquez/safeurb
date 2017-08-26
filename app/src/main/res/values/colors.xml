@@ -8,4 +8,5 @@
     <color name="assault_color">#f44336</color>
     <color name="theif_color">#FF5722</color>
     <color name="report_title_bg_color">#fd9727</color>
+    <color name="bg_camera_color">#fd9727</color>
 </resources>

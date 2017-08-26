@@ -18,19 +18,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class PublishReportActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,
                                                                         TimePickerDialog.OnTimeSetListener{
 
     private SimpleDateFormat dateTimeFormat;
+
+    private int[] yearMonthDay = new int[3];
+
     private SimpleDateFormat dateFormat;
     private SimpleDateFormat timeFormat;
 
     private Calendar calendarDate;
     private Calendar calendarTime;
-
     private TextView txtTitleAction;
-    private String dateTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +45,21 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
         txtTitleAction = (TextView)findViewById(R.id.txt_title_action);
 
         // Get data from intent
-        String type = getIntent().getStringExtra("type");
-        String[] reportTypes = getResources().getStringArray(R.array.report_types);
+        String type             = getIntent().getStringExtra("type");
+        String[] reportTypes    = getResources().getStringArray(R.array.report_types);
 
         txtTitleAction.setText((type.equals("assault")) ? reportTypes[0] : reportTypes[1]);
 
-        dateTimeFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm a");
-        dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        timeFormat = new SimpleDateFormat("hh:mm a");
+        dateTimeFormat  = new SimpleDateFormat("dd-MM-yyyy hh:mm a", java.util.Locale.getDefault());
+        dateFormat      = new SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault());
+        timeFormat      = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
 
-        dateTime = dateTimeFormat.format(new Date());
-
-        setDateTime(dateTime);
+        setDateTime(dateTimeFormat.format(new Date()));
     }
 
+    /**
+     * @param dateTime
+     */
     private void setDateTime(String dateTime){
         ((TextView) findViewById(R.id.show_date)).setText(dateTime);
     }
@@ -66,14 +69,21 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
         timePicker();
         calendarDate = new GregorianCalendar(i, i1, i2);
 
-        /*setDate(calendarDate);*/
+        yearMonthDay[0] = i;
+        yearMonthDay[1] = i1;
+        yearMonthDay[2] = i2;
+
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-        android.util.Log.d("PublishReportActivity", hourOfDay+":"+minute);
-        /*calendarTime = new GregorianCalendar(i, i1, 0);
-        android.util.Log.d("PublishReportActivity", calendarTime.getTime().toString());*/
+
+        calendarTime = new GregorianCalendar(yearMonthDay[0], yearMonthDay[1], yearMonthDay[2],
+                                hourOfDay, minute, 0);
+        String s = dateFormat.format(calendarDate.getTime());
+        s += " "+timeFormat.format(calendarTime.getTime());
+
+        setDateTime(s);
     }
 
     /**
@@ -88,11 +98,6 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
         TimePickerFragment fragment = new TimePickerFragment();
         fragment.show(getFragmentManager(), "time");
     }
-
-    /*public void setDate(final Calendar calendarDate){
-        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT);
-        ((TextView) findViewById(R.id.show_date)).setText(dateFormat.format(calendarDate.getTime()));
-    }*/
 
     public static class DatePickerFragment extends DialogFragment{
 
@@ -119,14 +124,6 @@ public class PublishReportActivity extends AppCompatActivity implements DatePick
 
             return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener)getActivity(), hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
-
-            /*final Calendar calendar = Calendar.getInstance();
-
-            int hour    = calendar.get(Calendar.HOUR);
-            int min     = calendar.get(Calendar.MINUTE);
-            int second  = calendar.get(Calendar.SECOND);
-
-            return new TimePickerDialog(getActivity(), (TimePickerDialog.OnTimeSetListener)getActivity(), hour, min, false);*/
         }
     }
 }
