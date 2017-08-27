@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -12,12 +13,13 @@ import android.os.Bundle;
 
 public class InformationDialog extends DialogFragment {
 
-    public static InformationDialog newInstance(String title, String message){
+    public static InformationDialog newInstance(String title, String message, boolean dataSaved){
         InformationDialog dialog = new InformationDialog();
 
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putString("message", message);
+        args.putBoolean("data_saved", dataSaved);
 
         dialog.setArguments(args);
         return dialog;
@@ -40,6 +42,12 @@ public class InformationDialog extends DialogFragment {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
+                if(getArguments().getBoolean("data_saved")){
+
+                    startActivity(new Intent(getActivity(), HomeActivity.class));
+                }
+
                 InformationDialog.this.getDialog().cancel();
             }
         });

@@ -139,16 +139,21 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                             public void onComplete(DatabaseError databaseError,
                                                    DatabaseReference databaseReference) {
 
-                                if (databaseError != null) {
-                                    InformationDialog dialog = InformationDialog.newInstance("Error al guardar los datos", "Los datos no se guardaron " + databaseError.getMessage());
-                                    dialog.show(getFragmentManager(), "dialog");
+                                String message = "Gracias por reportar, tu ayuda hará de la sociedad un lugar más seguro.";
+
+                                if(databaseError != null) {
+                                    message = "Los datos no se guardaron, código de error: "+databaseError.getCode();
                                 }
+
+                                InformationDialog dialog = InformationDialog.newInstance("Notificación", message, true);
+                                dialog.show(getFragmentManager(), "dialog");
                             }
                         });
                     }
 
                 }else{
-                    InformationDialog dialog = InformationDialog.newInstance("Completa el formulario", "Descripción y fecha son obligatorios.");
+                    InformationDialog dialog = InformationDialog.newInstance(getString(R.string.form_valitation_title),
+                                                                             getString(R.string.form_validation_message), false);
                     dialog.show(getFragmentManager(), "dialog");
                 }
                 break;

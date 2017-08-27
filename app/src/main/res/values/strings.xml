@@ -13,6 +13,8 @@
     <string name="publish_notice">El reporte se registrará desde tu ubicación actual para luego ser usado en el mapa.</string>
     <string name="publicar">Publicar</string>
     <string name="image_taken">Image taken</string>
+    <string name="form_validation_message">Descripción y fecha son obligatorios.</string>
+    <string name="form_valitation_title">Complete el formulario</string>
 
     <string-array name="report_types">
         <item>Asalto</item>
