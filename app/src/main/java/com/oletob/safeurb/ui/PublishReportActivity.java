@@ -87,6 +87,9 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
         setDateTime(dateTimeFormat.format(new Date()));
 
         txtTitleAction.setText((type.equals("assault")) ? reportTypes[0] : reportTypes[1]);
+
+        calendarDate = Calendar.getInstance();
+        calendarTime = Calendar.getInstance();
     }
 
     @Override

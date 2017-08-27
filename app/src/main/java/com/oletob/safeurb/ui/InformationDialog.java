@@ -37,7 +37,7 @@ public class InformationDialog extends DialogFragment {
         }
 
         // Button, just one. The button to close the dialog
-        builder.setPositiveButton("Cerrar", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 InformationDialog.this.getDialog().cancel();
