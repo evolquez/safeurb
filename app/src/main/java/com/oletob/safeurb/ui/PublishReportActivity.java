@@ -1,5 +1,6 @@
 package com.oletob.safeurb.ui;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -11,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 public class PublishReportActivity extends AppCompatActivity implements View.OnClickListener,
                                                                         DatePickerDialog.OnDateSetListener,
@@ -32,18 +34,26 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private SimpleDateFormat dateTimeFormat;
-
     private int[] yearMonthDay = new int[3];
 
+    private SimpleDateFormat dateTimeFormat;
     private SimpleDateFormat dateFormat;
     private SimpleDateFormat timeFormat;
 
     private Calendar calendarDate;
     private Calendar calendarTime;
-    private TextView txtTitleAction;
 
+    private Button btnPublish;
+    private TextView txtTitleAction;
     private ImageButton btnTakePhoto;
+    private ImageView imageTaken;
+
+    private EditText situation;
+    private String date;
+    private String time;
+
+    private Bitmap imageReportBitmap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +63,53 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
 
         getSupportActionBar().setTitle(R.string.publish_report_title);
 
-        txtTitleAction = (TextView)findViewById(R.id.txt_title_action);
-
         // Get data from intent
         String type             = getIntent().getStringExtra("type");
         String[] reportTypes    = getResources().getStringArray(R.array.report_types);
-
-        txtTitleAction.setText((type.equals("assault")) ? reportTypes[0] : reportTypes[1]);
 
         dateTimeFormat  = new SimpleDateFormat("dd-MM-yyyy hh:mm a", java.util.Locale.getDefault());
         dateFormat      = new SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault());
         timeFormat      = new SimpleDateFormat("hh:mm a", java.util.Locale.getDefault());
 
-        btnTakePhoto = (ImageButton)findViewById(R.id.btnTakePicture);
+        // Instantiate views
+        btnPublish      = (Button)findViewById(R.id.btnPublish);
+        btnTakePhoto    = (ImageButton)findViewById(R.id.btnTakePicture);
+        imageTaken      = (ImageView)findViewById(R.id.imageTaken);
+        txtTitleAction  = (TextView)findViewById(R.id.txt_title_action);
+        situation       = (EditText)findViewById(R.id.report_description);
+
+        // Set Onclick listener to views
+
         btnTakePhoto.setOnClickListener(this);
+        imageTaken.setOnClickListener(this);
+        btnPublish.setOnClickListener(this);
 
         setDateTime(dateTimeFormat.format(new Date()));
+
+        txtTitleAction.setText((type.equals("assault")) ? reportTypes[0] : reportTypes[1]);
     }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnPublish:
+                if((situation.getText().toString().length() > 0 && situation.getText().toString() != "")
+                        && calendarTime != null && calendarDate != null){
+
+                }else{
+                    InformationDialog dialog = InformationDialog.newInstance("Completa el formulario", "Descripción y fecha son obligatorios.");
+                    dialog.show(getFragmentManager(), "dialog");
+                }
+                break;
+            case R.id.btnTakePicture:
+                this.dispatchTakePictureIntent();
+                break;
+            case R.id.imageTaken:
+                Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
 
     /**
      * @param dateTime
@@ -81,8 +121,8 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
         timePicker();
-        calendarDate = new GregorianCalendar(i, i1, i2);
 
+        calendarDate    = new GregorianCalendar(i, i1, i2);
         yearMonthDay[0] = i;
         yearMonthDay[1] = i1;
         yearMonthDay[2] = i2;
@@ -111,15 +151,6 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
     public void timePicker(){
         TimePickerFragment fragment = new TimePickerFragment();
         fragment.show(getFragmentManager(), "time");
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnTakePicture:
-                this.dispatchTakePictureIntent();
-                break;
-        }
     }
 
     public static class DatePickerFragment extends DialogFragment{
@@ -165,9 +196,9 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
             Bundle extras       = data.getExtras();
-            Bitmap imageBitmap  = (Bitmap) extras.get("data");
+            imageReportBitmap  = (Bitmap) extras.get("data");
 
-            ((ImageView)findViewById(R.id.imageTaken)).setImageBitmap(imageBitmap);
+            ((ImageView)findViewById(R.id.imageTaken)).setImageBitmap(imageReportBitmap);
         }
     }
 
