@@ -140,6 +140,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     private void startReportActivity(String type) {
         Intent i = new Intent(getActivity(), PublishReportActivity.class);
         i.putExtra("type", type);
+        i.putExtra("lat", this.locationInterface.getLastLocation().getLatitude());
+        i.putExtra("lng", this.locationInterface.getLastLocation().getLongitude());
         startActivity(i);
     }
 

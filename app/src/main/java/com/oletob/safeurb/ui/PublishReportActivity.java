@@ -21,8 +21,17 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.oletob.safeurb.R;
+import com.oletob.safeurb.model.Report;
+import com.oletob.safeurb.model.User;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,9 +60,11 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
     private EditText situation;
     private String date;
     private String time;
+    private String type;
 
     private Bitmap imageReportBitmap;
 
+    private LatLng currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +75,10 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
         getSupportActionBar().setTitle(R.string.publish_report_title);
 
         // Get data from intent
-        String type             = getIntent().getStringExtra("type");
+        type                    = getIntent().getStringExtra("type");
         String[] reportTypes    = getResources().getStringArray(R.array.report_types);
+        this.currentLocation    = new LatLng(getIntent().getDoubleExtra("lat", 18.5001),
+                                    getIntent().getDoubleExtra("lng", -69.9886));
 
         dateTimeFormat  = new SimpleDateFormat("dd-MM-yyyy hh:mm a", java.util.Locale.getDefault());
         dateFormat      = new SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault());
@@ -98,6 +111,41 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
             case R.id.btnPublish:
                 if((situation.getText().toString().length() > 0 && situation.getText().toString() != "")
                         && calendarTime != null && calendarDate != null){
+
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+                    String date         = df.format(calendarDate.getTime());
+                    df                  = new SimpleDateFormat("HH:mm:ss", java.util.Locale.getDefault());
+                    date                += " "+df.format(calendarTime.getTime());
+
+                    df              = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.getDefault());
+                    Date dateTime   = null;
+
+                    try {
+                        dateTime = df.parse(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    if(dateTime != null){
+
+                        Report report = new Report(situation.getText().toString(), type,
+                                    this.currentLocation, "picture", dateTime, new Date());
+
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reports");
+                        DatabaseReference newReport = mDatabase.push();
+
+                        newReport.setValue(report, new DatabaseReference.CompletionListener(){
+                            @Override
+                            public void onComplete(DatabaseError databaseError,
+                                                   DatabaseReference databaseReference) {
+
+                                if (databaseError != null) {
+                                    InformationDialog dialog = InformationDialog.newInstance("Error al guardar los datos", "Los datos no se guardaron " + databaseError.getMessage());
+                                    dialog.show(getFragmentManager(), "dialog");
+                                }
+                            }
+                        });
+                    }
 
                 }else{
                     InformationDialog dialog = InformationDialog.newInstance("Completa el formulario", "Descripción y fecha son obligatorios.");

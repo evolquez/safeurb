@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "423207784342-njo8n7bjjr78e3l6pqqund653amrb7ar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.oletob.safeurb",
+            "certificate_hash": "596ad6db5ec7bc9b53ef0c0347cddd90cd038624"
+          }
+        },
+        {
           "client_id": "423207784342-0i49ql9evqu4ghb59q7q7ffuarvbk9ip.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "423207784342-0i49ql9evqu4ghb59q7q7ffuarvbk9ip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
