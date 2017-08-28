@@ -1,6 +1,7 @@
 package com.oletob.safeurb.ui;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
@@ -25,6 +26,7 @@ import com.oletob.safeurb.model.LocationListener;
 public class HomeActivity extends AppCompatActivity implements MapFragment.OnFragmentInteractionListener,
                                                                 ActivitiesFragment.OnFragmentInteractionListener,
                                                                 LocationListener,
+                                                                View.OnClickListener,
                                                                 BottomNavigationView.OnNavigationItemSelectedListener{
 
     public static final int MY_APP_REQUEST_PERMISSION = 0x100;
@@ -145,5 +147,22 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
                 return true;*/
         }
         return false;
+    }
+
+    @Override
+    public void onClick(View view) {
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.optAbout:
+                Intent i = new Intent(HomeActivity.this, AboutActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

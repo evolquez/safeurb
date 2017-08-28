@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/optOneBtn"
-        android:title="Opción1"/>
-    <item
-        android:id="@+id/optOneBtn2"
-        android:title="Opción2"/>
-    <item
-        android:title="Opción3"/>
-    <item
-        android:title="Opción4"/>
-    <item
-        android:title="Opción5"/>
+        android:id="@+id/optAbout"
+        android:title="@string/about"/>
 </menu>

@@ -1,6 +1,5 @@
 package com.oletob.safeurb.ui;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -22,14 +21,11 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.oletob.safeurb.R;
 import com.oletob.safeurb.model.Report;
-import com.oletob.safeurb.model.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

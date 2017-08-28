@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SafeUrb</string>
+    <string name="author_name">Algenis Volquez</string>
     <string name="title_activity_main">SafeUrb</string>
     <string name="title_activity_buttom">buttomActivity</string>
     <string name="title_home">Home</string>
@@ -15,6 +17,8 @@
     <string name="image_taken">Image taken</string>
     <string name="form_validation_message">Descripción y fecha son obligatorios.</string>
     <string name="form_valitation_title">Complete el formulario</string>
+    <string name="about">Acerca de</string>
+    <string name="made_in_santo_domingo">Hecho con &#9829; en Santo Domingo por</string>
 
     <string-array name="report_types">
         <item>Asalto</item>
