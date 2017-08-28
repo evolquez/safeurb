@@ -26,8 +26,16 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.oletob.safeurb.R;
 import com.oletob.safeurb.model.LocationListener;
+import com.oletob.safeurb.model.Report;
 
 
 /**
@@ -40,17 +48,23 @@ import com.oletob.safeurb.model.LocationListener;
  */
 public class MapFragment extends Fragment implements OnMapReadyCallback{
 
-    private OnFragmentInteractionListener mListener;
+    private static final String TAG = "MapFragment";
+    private DatabaseReference mReportsReference;
 
+    private OnFragmentInteractionListener mListener;
     private GoogleMap mGoogleMap;
     private MapView mMapView;
     private View mView;
-
     public LocationListener locationInterface;
-    private FloatingActionButton fabActionMenu, fabAssault, fabTheif;
     private Animation fabOpen, fabClose;
 
+    //private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //
+
     private boolean isOpen = false;
+
+    private FloatingActionButton fabActionMenu, fabAssault, fabTheif;
+
     public MapFragment() {
         // Required empty public constructor
     }
@@ -63,12 +77,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
      */
     // TODO: Rename and change types and number of parameters
     public static MapFragment newInstance(LocationListener listener) {
-        MapFragment fragment = new MapFragment();
-        fragment.locationInterface = listener;
+        MapFragment fragment        = new MapFragment();
+        fragment.locationInterface  = listener;
+
         /*Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);*/
+
         return fragment;
     }
 
@@ -94,6 +110,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         fabTheif        = (FloatingActionButton) mView.findViewById(R.id.fab_theif);
         fabOpen         = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         fabClose        = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
+
+        // Set firebase reference
+
+        mReportsReference = FirebaseDatabase.getInstance().getReference().child("reports");
 
         fabActionMenu.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -139,9 +159,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
 
     private void startReportActivity(String type) {
         Intent i = new Intent(getActivity(), PublishReportActivity.class);
+
         i.putExtra("type", type);
         i.putExtra("lat", this.locationInterface.getLastLocation().getLatitude());
         i.putExtra("lng", this.locationInterface.getLastLocation().getLongitude());
+
         startActivity(i);
     }
 
@@ -208,6 +230,69 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         CameraPosition cp = CameraPosition.builder().target(current).zoom(14).build();
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
+
+        this.addMapMarkers();
+        this.addChildListener();
+    }
+
+    /**
+     *  This method depends on mGoogleMap not tu be null, so thats why its called after map initialized.
+     */
+    private void addMapMarkers(){
+
+        mReportsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    Report report = child.getValue(Report.class);
+                    mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(report.latitude,
+                                                                        report.longitude)).title(report.description));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    /**
+     * Add child listener, so everytime a new report is added, firebase will notify all devices
+     */
+    private void addChildListener(){
+        ChildEventListener listener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Report report = dataSnapshot.getValue(Report.class);
+
+                mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(report.latitude,
+                                                        report.longitude)).title(report.description));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+        mReportsReference.addChildEventListener(listener);
     }
 
     /**

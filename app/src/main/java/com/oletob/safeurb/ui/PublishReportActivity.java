@@ -129,7 +129,7 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                     if(dateTime != null){
 
                         Report report = new Report(situation.getText().toString(), type,
-                                    this.currentLocation, "picture", dateTime, new Date());
+                                    this.currentLocation.latitude, this.currentLocation.longitude, "picture", dateTime, new Date());
 
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reports");
                         DatabaseReference newReport = mDatabase.push();
@@ -139,7 +139,7 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                             public void onComplete(DatabaseError databaseError,
                                                    DatabaseReference databaseReference) {
 
-                                String message = "Gracias por reportar, tu ayuda hará de la sociedad un lugar más seguro.";
+                                String message = getString(R.string.thanks_for_reporting);
 
                                 if(databaseError != null) {
                                     message = "Los datos no se guardaron, código de error: "+databaseError.getCode();
@@ -165,7 +165,6 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                 break;
         }
     }
-
 
     /**
      * @param dateTime
