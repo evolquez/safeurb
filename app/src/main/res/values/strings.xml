@@ -19,13 +19,14 @@
     <string name="form_valitation_title">Complete el formulario</string>
     <string name="about">Acerca de</string>
     <string name="made_in_santo_domingo">Hecho con &#9829; en Santo Domingo por</string>
+    <string name="author_linkedin_profile">https://www.linkedin.com/in/evolquez/</string>
+    <string name="activities">Actividades</string>
 
     <string-array name="report_types">
         <item>Asalto</item>
         <item>Robo</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="thanks_for_reporting">Gracias por reportar, tu ayuda hará de la sociedad un lugar más seguro.</string>
 

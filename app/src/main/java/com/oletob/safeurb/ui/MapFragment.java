@@ -58,9 +58,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     public LocationListener locationInterface;
     private Animation fabOpen, fabClose;
 
-    //private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //
-
     private boolean isOpen = false;
 
     private FloatingActionButton fabActionMenu, fabAssault, fabTheif;
@@ -227,7 +224,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
 
         mGoogleMap.setMyLocationEnabled(true);
 
-        CameraPosition cp = CameraPosition.builder().target(current).zoom(14).build();
+        CameraPosition cp = CameraPosition.builder().target(current).zoom(8).build();
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
 
