@@ -88,6 +88,7 @@ public class ActivitiesFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_activities, container, false);
 
         recyclerViewActivities = (RecyclerView)mView.findViewById(R.id.recycler_activity_view);
+
         recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getActivity()));
         return mView;
     }

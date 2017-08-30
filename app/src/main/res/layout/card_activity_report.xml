@@ -25,15 +25,15 @@
                 android:id="@+id/txtReportType"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginLeft="3dp"
                 android:layout_marginTop="8dp"
                 android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toRightOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:background="@color/assault_color"
                 tools:text="Asalto" />
@@ -53,26 +53,16 @@
                 tools:text="Asalto a mano armada, hombre resultó herido." />
 
             <TextView
-                android:id="@+id/txtShare"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
-                android:layout_marginTop="24dp"
-                android:text="COMPARTIR"
+                android:layout_marginTop="8dp"
+                android:text="Tipo"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtReportDescription" />
-
-            <TextView
-                android:id="@+id/txtReadMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:text="LEER MAS"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@+id/txtShare"
-                app:layout_constraintTop_toBottomOf="@+id/txtReportDescription" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
