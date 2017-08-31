@@ -209,11 +209,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         mGoogleMap = googleMap;
 
         LatLng current = new LatLng(18.4855, -69.8731);
-        if(this.locationInterface.getLastLocation() != null){
 
-            current = new LatLng(this.locationInterface.getLastLocation().getLatitude(),
-                                        this.locationInterface.getLastLocation().getLongitude());
+        if(this.locationInterface != null){
+            if(this.locationInterface.getLastLocation() != null){
+
+                current = new LatLng(this.locationInterface.getLastLocation().getLatitude(),
+                        this.locationInterface.getLastLocation().getLongitude());
+            }
         }
+
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&

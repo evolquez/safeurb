@@ -1,5 +1,6 @@
 package com.oletob.safeurb.ui;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -99,6 +101,8 @@ public class ActivitiesFragment extends Fragment {
 
         recyclerViewActivities.setHasFixedSize(true);
         final ArrayList<Report> reports = new ArrayList<>();
+
+
         DatabaseReference mReportsReference = FirebaseDatabase.getInstance().getReference().child("reports");
 
         mReportsReference.addListenerForSingleValueEvent(new ValueEventListener() {
