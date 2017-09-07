@@ -50,6 +50,7 @@ public class ActivitiesFragment extends Fragment {
 
     private View mView;
     private RecyclerView recyclerViewActivities;
+    private ProgressBar loadingActivities;
 
     public ActivitiesFragment() {
         // Required empty public constructor
@@ -89,7 +90,11 @@ public class ActivitiesFragment extends Fragment {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_activities, container, false);
 
-        recyclerViewActivities = (RecyclerView)mView.findViewById(R.id.recycler_activity_view);
+        loadingActivities       = (ProgressBar) mView.findViewById(R.id.loadingActivities);
+        recyclerViewActivities  = (RecyclerView)mView.findViewById(R.id.recycler_activity_view);
+
+        recyclerViewActivities.setVisibility(View.INVISIBLE);
+        loadingActivities.setVisibility(View.VISIBLE);
 
         recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getActivity()));
         return mView;
@@ -112,6 +117,9 @@ public class ActivitiesFragment extends Fragment {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     reports.add(child.getValue(Report.class));
                 }
+
+                loadingActivities.setVisibility(View.INVISIBLE);
+                recyclerViewActivities.setVisibility(View.VISIBLE);
 
                 recyclerViewActivities.setAdapter(new ActivitiesAdapter(getActivity(), reports));
             }
