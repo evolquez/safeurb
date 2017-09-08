@@ -142,9 +142,6 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
             case R.id.navigation_map:
                 setMapView();
                 return true;
-            /*case R.id.navigation_notifications:
-
-                return true;*/
         }
         return false;
     }

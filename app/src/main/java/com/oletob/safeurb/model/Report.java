@@ -12,25 +12,28 @@ import java.util.Date;
 @IgnoreExtraProperties
 public class Report {
 
+    public String id;
     public String description;
     public String type;
     public double latitude;
     public double longitude;
-    public String picture;
     public Date reportDate;
     public Date createdAt;
 
     public Report() { }
 
-    public Report(String description, String type, double latitude, double longitude, String picture, Date reportDate,
+    public Report(String description, String type, double latitude, double longitude, Date reportDate,
                   Date createdAt) {
         this.description    = description;
         this.type           = type;
         this.latitude       = latitude;
         this.longitude      = longitude;
-        this.picture        = picture;
         this.reportDate     = reportDate;
         this.createdAt      = createdAt;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
     @Override
@@ -40,7 +43,6 @@ public class Report {
                 ", type='" + type + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
-                ", picture='" + picture + '\'' +
                 ", reportDate=" + reportDate +
                 ", createdAt=" + createdAt +
                 '}';

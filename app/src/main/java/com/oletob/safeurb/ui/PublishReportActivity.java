@@ -6,7 +6,12 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -21,12 +26,21 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.oletob.safeurb.R;
+import com.oletob.safeurb.model.CurrentLocation;
+import com.oletob.safeurb.model.LocationListener;
 import com.oletob.safeurb.model.Report;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -58,9 +72,13 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
     private String time;
     private String type;
 
-    private Bitmap imageReportBitmap;
+    //private Bitmap imageReportBitmap;
 
     private LatLng currentLocation;
+
+    private StorageReference mStorageRef;
+    private String reportPhotoPath;
+    private Uri imageReportUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,11 +88,12 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
 
         getSupportActionBar().setTitle(R.string.publish_report_title);
 
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         // Get data from intent
         type                    = getIntent().getStringExtra("type");
         String[] reportTypes    = getResources().getStringArray(R.array.report_types);
-        this.currentLocation    = new LatLng(getIntent().getDoubleExtra("lat", 18.5001),
-                                    getIntent().getDoubleExtra("lng", -69.9886));
+        this.currentLocation    = new LatLng(getIntent().getDoubleExtra("lat", 18.5001), getIntent().getDoubleExtra("lng", -69.9886));
 
         dateTimeFormat  = new SimpleDateFormat("dd-MM-yyyy hh:mm a", java.util.Locale.getDefault());
         dateFormat      = new SimpleDateFormat("dd-MM-yyyy", java.util.Locale.getDefault());
@@ -123,25 +142,49 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                     }
 
                     if(dateTime != null){
+                        Location current = CurrentLocation.getInstance().get(this);
+
+                        if(current != null){
+                            this.currentLocation = new LatLng(current.getLatitude(), current.getLongitude());
+                        }
 
                         Report report = new Report(situation.getText().toString(), type,
-                                    this.currentLocation.latitude, this.currentLocation.longitude, "picture", dateTime, new Date());
+                                    this.currentLocation.latitude, this.currentLocation.longitude,  dateTime, new Date());
 
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("reports");
-                        DatabaseReference newReport = mDatabase.push();
+
+                        final DatabaseReference newReport = mDatabase.push();
 
                         newReport.setValue(report, new DatabaseReference.CompletionListener(){
                             @Override
                             public void onComplete(DatabaseError databaseError,
                                                    DatabaseReference databaseReference) {
 
-                                String message = getString(R.string.thanks_for_reporting);
+                                final String[] message = {getString(R.string.thanks_for_reporting)};
 
                                 if(databaseError != null) {
-                                    message = "Los datos no se guardaron, código de error: "+databaseError.getCode();
+                                    message[0] = "Los datos no se guardaron, código de error: " + databaseError.getCode();
+                                }else{
+                                    String id = newReport.getKey();
+                                    StorageReference imageRef = mStorageRef.child("reports-images/"+id+".jpg");
+
+                                    imageRef.putFile(imageReportUri)
+                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                @Override
+                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception exception) {
+                                                    message[0] += "\nLa imagen no pudo ser guardada.";
+                                                }
+                                            });
+
                                 }
 
-                                InformationDialog dialog = InformationDialog.newInstance("Notificación", message, true);
+                                InformationDialog dialog = InformationDialog.newInstance("Notificación", message[0], true);
                                 dialog.show(getFragmentManager(), "dialog");
                             }
                         });
@@ -237,7 +280,25 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+
+                Uri photoURI    = FileProvider.getUriForFile(this, "com.oletob.safeurb.fileprovider", photoFile);
+                imageReportUri  = photoURI;
+
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
         }
     }
 
@@ -246,11 +307,31 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
 
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
 
-            Bundle extras       = data.getExtras();
-            imageReportBitmap  = (Bitmap) extras.get("data");
-
-            ((ImageView)findViewById(R.id.imageTaken)).setImageBitmap(imageReportBitmap);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageReportUri);
+                ((ImageView)findViewById(R.id.imageTaken)).setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
+    /**
+     * @return
+     * @throws IOException
+     */
+    private File createImageFile() throws IOException {
+
+        // Create an image file name
+        String timeStamp        = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                                        java.util.Locale.getDefault()).format(new Date());
+        String imageFileName    = "safeurb_" + timeStamp + "_";
+        File storageDir         = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image              = File.createTempFile( imageFileName, ".jpg", storageDir);
+
+        // Save a file: path for use with ACTION_VIEW intents
+        reportPhotoPath = image.getAbsolutePath();
+
+        return image;
+    }
 }

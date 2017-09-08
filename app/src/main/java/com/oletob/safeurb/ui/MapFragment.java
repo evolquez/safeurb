@@ -213,8 +213,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
         if(this.locationInterface != null){
             if(this.locationInterface.getLastLocation() != null){
 
-                current = new LatLng(this.locationInterface.getLastLocation().getLatitude(),
-                        this.locationInterface.getLastLocation().getLongitude());
+                current = new LatLng(
+                    this.locationInterface.getLastLocation().getLatitude(),
+                    this.locationInterface.getLastLocation().getLongitude()
+                );
             }
         }
 
