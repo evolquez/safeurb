@@ -76,6 +76,7 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
 
     private LatLng currentLocation;
 
+    private File photoFile = null;
     private StorageReference mStorageRef;
     private String reportPhotoPath;
     private Uri imageReportUri;
@@ -165,22 +166,27 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                                 if(databaseError != null) {
                                     message[0] = "Los datos no se guardaron, código de error: " + databaseError.getCode();
                                 }else{
-                                    String id = newReport.getKey();
-                                    StorageReference imageRef = mStorageRef.child("reports-images/"+id+".jpg");
+                                    if(imageReportUri != null){
 
-                                    imageRef.putFile(imageReportUri)
-                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                @Override
-                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        String id = newReport.getKey();
+                                        StorageReference imageRef = mStorageRef.child("reports-images/"+id+".jpg");
 
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception exception) {
-                                                    message[0] += "\nLa imagen no pudo ser guardada.";
-                                                }
-                                            });
+                                        imageRef.putFile(imageReportUri)
+                                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                    @Override
+                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                        photoFile.delete(); // Delete the file from device
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception exception) {
+                                                        photoFile.delete(); // Delete the file from device
+                                                        message[0] += "\nLa imagen no pudo ser guardada.";
+                                                    }
+                                                });
+                                    }
+
 
                                 }
 
@@ -282,7 +288,7 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
 
             // Create the File where the photo should go
-            File photoFile = null;
+
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
@@ -310,6 +316,7 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageReportUri);
                 ((ImageView)findViewById(R.id.imageTaken)).setImageBitmap(bitmap);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
