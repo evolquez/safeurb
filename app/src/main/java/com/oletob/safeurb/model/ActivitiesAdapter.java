@@ -1,12 +1,15 @@
 package com.oletob.safeurb.model;
 
+import android.app.Activity;
 import android.content.Context;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.oletob.safeurb.R;
 
 import java.util.ArrayList;
@@ -19,10 +22,13 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
 
     private final ArrayList<Report> entries;
     private final Context context;
+    private Location currentLocation;
 
-    public ActivitiesAdapter(Context context, ArrayList<Report> entries){
-        this.context = context;
-        this.entries = entries;
+    public ActivitiesAdapter(Context context, ArrayList<Report> entries, Location location){
+        this.context            = context;
+        this.entries            = entries;
+        this.currentLocation    = location;
+
     }
     @Override
     public ReportHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,6 +53,14 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
         holder.type.setBackgroundColor(bgColor);
 
         holder.description.setText(r.description);
+
+        double[] distanceAndUnits = Util.calcDistance(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
+                                            new LatLng(r.latitude, r.longitude), true);
+
+        String unit = (distanceAndUnits[1] > 0) ? " m" : " km";
+        String text = distanceAndUnits[0] + unit;
+
+        holder.distance.setText(text);
     }
 
     @Override

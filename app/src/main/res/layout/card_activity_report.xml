@@ -33,7 +33,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:layout_constraintLeft_toRightOf="@+id/textView"
+                app:layout_constraintLeft_toRightOf="@+id/txtType"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:background="@color/assault_color"
                 tools:text="Asalto" />
@@ -53,7 +53,7 @@
                 tools:text="Asalto a mano armada, hombre resultó herido." />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/txtType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -63,6 +63,27 @@
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/reportLocationIcon"
+                android:layout_width="0dp"
+                android:layout_height="19dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                card_view:srcCompat="@drawable/ic_report_location" />
+
+            <TextView
+                android:id="@+id/txtDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="9dp"
+                android:layout_marginLeft="4dp"
+                android:textColor="#808080"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/reportLocationIcon"
+                tools:text="0.5 km" />
 
         </android.support.constraint.ConstraintLayout>
 

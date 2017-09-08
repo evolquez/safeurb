@@ -136,7 +136,7 @@ public class HomeActivity extends AppCompatActivity implements MapFragment.OnFra
         switch (item.getItemId()) {
             case R.id.navigation_activities:
                 getSupportFragmentManager().beginTransaction().
-                        replace(R.id.frame_layout, ActivitiesFragment.newInstance("1","2")).
+                        replace(R.id.frame_layout, ActivitiesFragment.newInstance(HomeActivity.this)).
                         addToBackStack("Activities Fragment").commit();
                 return true;
             case R.id.navigation_map:

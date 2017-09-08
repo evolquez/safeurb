@@ -13,12 +13,14 @@ import com.oletob.safeurb.R;
 public class ReportHolder extends RecyclerView.ViewHolder{
     public TextView type;
     public TextView description;
+    public TextView distance;
 
     public ReportHolder(View itemView) {
         super(itemView);
 
         this.type           = itemView.findViewById(R.id.txtReportType);
         this.description    = itemView.findViewById(R.id.txtReportDescription);
+        this.distance       = itemView.findViewById(R.id.txtDistance);
 
     }
 }

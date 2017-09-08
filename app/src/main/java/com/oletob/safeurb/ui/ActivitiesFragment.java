@@ -24,6 +24,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.oletob.safeurb.R;
 import com.oletob.safeurb.model.ActivitiesAdapter;
+import com.oletob.safeurb.model.LocationListener;
 import com.oletob.safeurb.model.Report;
 
 import java.util.ArrayList;
@@ -52,6 +53,7 @@ public class ActivitiesFragment extends Fragment {
     private View mView;
     private RecyclerView recyclerViewActivities;
     private ProgressBar loadingActivities;
+    public LocationListener locationInterface;
 
     public ActivitiesFragment() {
         // Required empty public constructor
@@ -61,17 +63,14 @@ public class ActivitiesFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param listener
      * @return A new instance of fragment ActivitiesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ActivitiesFragment newInstance(String param1, String param2) {
+    public static ActivitiesFragment newInstance(LocationListener listener) {
         ActivitiesFragment fragment = new ActivitiesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+        fragment.locationInterface  = listener;
+
         return fragment;
     }
 
@@ -127,7 +126,8 @@ public class ActivitiesFragment extends Fragment {
                 loadingActivities.setVisibility(View.INVISIBLE);
                 recyclerViewActivities.setVisibility(View.VISIBLE);
 
-                recyclerViewActivities.setAdapter(new ActivitiesAdapter(getActivity(), reports));
+                recyclerViewActivities.setAdapter(new ActivitiesAdapter(getActivity(), reports,
+                                                                        locationInterface.getLastLocation()));
             }
 
             @Override

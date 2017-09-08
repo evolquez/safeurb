@@ -35,8 +35,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.oletob.safeurb.R;
-import com.oletob.safeurb.model.CurrentLocation;
-import com.oletob.safeurb.model.LocationListener;
+import com.oletob.safeurb.model.Util;
 import com.oletob.safeurb.model.Report;
 
 import java.io.File;
@@ -143,7 +142,7 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                     }
 
                     if(dateTime != null){
-                        Location current = CurrentLocation.getInstance().get(this);
+                        Location current = Util.getInstance().getCurrentLocation(this);
 
                         if(current != null){
                             this.currentLocation = new LatLng(current.getLatitude(), current.getLongitude());
