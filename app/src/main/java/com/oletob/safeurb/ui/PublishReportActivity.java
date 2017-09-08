@@ -186,8 +186,6 @@ public class PublishReportActivity extends AppCompatActivity implements View.OnC
                                                     }
                                                 });
                                     }
-
-
                                 }
 
                                 InformationDialog dialog = InformationDialog.newInstance("Notificación", message[0], true);

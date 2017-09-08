@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.oletob.safeurb.R;
 import com.oletob.safeurb.model.ActivitiesAdapter;
@@ -96,7 +97,12 @@ public class ActivitiesFragment extends Fragment {
         recyclerViewActivities.setVisibility(View.INVISIBLE);
         loadingActivities.setVisibility(View.VISIBLE);
 
-        recyclerViewActivities.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+
+        recyclerViewActivities.setLayoutManager(layoutManager);
         return mView;
     }
 
