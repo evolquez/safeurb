@@ -43,15 +43,15 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
     public void onBindViewHolder(ReportHolder holder, int position) {
         Report r = this.entries.get(position);
 
-        int bgColor = 0;
+        int textColor = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            bgColor = (r.type.equals("assault")) ? this.context.getColor(R.color.assault_color) : this.context.getColor(R.color.theif_color);
+            textColor = (r.type.equals("assault")) ? this.context.getColor(R.color.assault_color) : this.context.getColor(R.color.theif_color);
         }else{
-            bgColor = (r.type.equals("assault")) ? this.context.getResources().getColor(R.color.assault_color) : this.context.getResources().getColor(R.color.theif_color);
+            textColor = (r.type.equals("assault")) ? this.context.getResources().getColor(R.color.assault_color) : this.context.getResources().getColor(R.color.theif_color);
         }
 
         holder.type.setText(( r.type.equals("assault")) ? "Asalto" : "Robo");
-        holder.type.setBackgroundColor(bgColor);
+        holder.type.setTextColor(textColor);
 
         if(r.description.length() > Util.CARD_DESCRIPTION_LENGTH)
             r.description = r.description.substring(0, Util.CARD_DESCRIPTION_LENGTH - 1)+" ...";
