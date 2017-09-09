@@ -13,6 +13,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.oletob.safeurb.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by evolquez on 8/29/17.
@@ -22,7 +23,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
 
     private final ArrayList<Report> entries;
     private final Context context;
-    private Location currentLocation;
+    private final Location currentLocation;
 
     public ActivitiesAdapter(Context context, ArrayList<Report> entries, Location location){
         this.context            = context;
@@ -61,6 +62,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
         String text = distanceAndUnits[0] + unit;
 
         holder.distance.setText(text);
+        String prettyTime = Util.getInstance().prettyDateDiff(Calendar.getInstance().getTime(), r.reportDate);
+
+        holder.time.setText(prettyTime);
     }
 
     @Override

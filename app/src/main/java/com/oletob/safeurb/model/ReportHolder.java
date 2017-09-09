@@ -14,6 +14,7 @@ public class ReportHolder extends RecyclerView.ViewHolder{
     public TextView type;
     public TextView description;
     public TextView distance;
+    public TextView time;
 
     public ReportHolder(View itemView) {
         super(itemView);
@@ -21,6 +22,7 @@ public class ReportHolder extends RecyclerView.ViewHolder{
         this.type           = itemView.findViewById(R.id.txtReportType);
         this.description    = itemView.findViewById(R.id.txtReportDescription);
         this.distance       = itemView.findViewById(R.id.txtDistance);
+        this.time           = itemView.findViewById(R.id.txtTime);
 
     }
 }

@@ -96,12 +96,13 @@ public class ActivitiesFragment extends Fragment {
         recyclerViewActivities.setVisibility(View.INVISIBLE);
         loadingActivities.setVisibility(View.VISIBLE);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
 
         recyclerViewActivities.setLayoutManager(layoutManager);
+
         return mView;
     }
 
@@ -110,8 +111,8 @@ public class ActivitiesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerViewActivities.setHasFixedSize(true);
-        final ArrayList<Report> reports = new ArrayList<>();
 
+        final ArrayList<Report> reports = new ArrayList<>();
 
         DatabaseReference mReportsReference = FirebaseDatabase.getInstance().getReference().child("reports");
 

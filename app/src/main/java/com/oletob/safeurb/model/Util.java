@@ -11,6 +11,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.Date;
+
 /**
  * Created by evolquez on 9/7/17.
  */
@@ -91,5 +93,46 @@ public class Util {
             }
         }
         return rs;
+    }
+
+    /**
+     * @param d1
+     * @param d2
+     * @return
+     */
+    public String prettyDateDiff(Date d1, Date d2){
+
+        long dateDiff = (d1.getTime() - d2.getTime()); // difference in milliseconds
+
+        // Declare variables for seconds, minutes, hours, days, weeks, months, years
+
+        long seconds    = (dateDiff / 1000);
+        long minutes    = (dateDiff / (60 * 1000));
+        long hours      = (dateDiff / (60 * 60 * 1000));
+        long days       = (dateDiff / (60 * 60 * 1000 * 24));
+        long weeks      = (dateDiff / (60 * 60 * 1000 * 24 * 7));
+        long months     = (long)(dateDiff / (60 * 60 * 1000 * 24 * 30.41666666));
+        long years      = (dateDiff / ((long) 60 * 60 * 1000 * 24 * 365));
+
+        String prettyDate;
+
+        if(seconds < 1)
+            prettyDate = "menos de un segundo";
+        else if(minutes < 1)
+            prettyDate = seconds + ((seconds > 1)? " segundos" : " segundo");
+        else if(hours < 1)
+            prettyDate = minutes + ((minutes > 1) ? " minutos" : " minuto");
+        else if(days < 1)
+            prettyDate = hours + ((hours > 1) ? " horas" : " hora");
+        else if(weeks < 1)
+            prettyDate = days + ((days > 1) ? " días" : " día");
+        else if(months < 1)
+            prettyDate = weeks + ((weeks > 1) ? " semanas" : " semana");
+        else if(years < 1)
+            prettyDate = months + ((months > 1) ? " meses" : " mes");
+        else
+            prettyDate = years + ((years > 1) ? " años" : " año");
+
+        return prettyDate;
     }
 }
