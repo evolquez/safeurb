@@ -19,7 +19,10 @@ import java.util.Date;
 
 public class Util {
 
+    public static final int CARD_DESCRIPTION_LENGTH = 85;
+
     private static Util instance = null;
+
 
     private Util() {
 

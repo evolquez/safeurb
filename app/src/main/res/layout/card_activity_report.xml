@@ -50,7 +50,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtReportType"
-                tools:text="Asalto a mano armada, hombre resultó herido." />
+                tools:text="Asalto a mano armada, hombre resultó herido. alsdkafdajdf ad sflaksdfasdkf alsdkfasdlf asdfas" />
 
             <TextView
                 android:id="@+id/txtType"

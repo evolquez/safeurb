@@ -53,6 +53,9 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
         holder.type.setText(( r.type.equals("assault")) ? "Asalto" : "Robo");
         holder.type.setBackgroundColor(bgColor);
 
+        if(r.description.length() > Util.CARD_DESCRIPTION_LENGTH)
+            r.description = r.description.substring(0, Util.CARD_DESCRIPTION_LENGTH - 1)+" ...";
+
         holder.description.setText(r.description);
 
         double[] distanceAndUnits = Util.calcDistance(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()),
