@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -53,6 +54,7 @@ public class ActivitiesFragment extends Fragment {
     private View mView;
     private RecyclerView recyclerViewActivities;
     private ProgressBar loadingActivities;
+    private TextView noActivitiesFound;
     public LocationListener locationInterface;
 
     public ActivitiesFragment() {
@@ -92,7 +94,9 @@ public class ActivitiesFragment extends Fragment {
 
         loadingActivities       = (ProgressBar) mView.findViewById(R.id.loadingActivities);
         recyclerViewActivities  = (RecyclerView)mView.findViewById(R.id.recycler_activity_view);
+        noActivitiesFound       = (TextView) mView.findViewById(R.id.txtNoActivitiesFound);
 
+        noActivitiesFound.setVisibility(View.INVISIBLE);
         recyclerViewActivities.setVisibility(View.INVISIBLE);
         loadingActivities.setVisibility(View.VISIBLE);
 
@@ -125,10 +129,15 @@ public class ActivitiesFragment extends Fragment {
                 }
 
                 loadingActivities.setVisibility(View.INVISIBLE);
-                recyclerViewActivities.setVisibility(View.VISIBLE);
 
-                recyclerViewActivities.setAdapter(new ActivitiesAdapter(getActivity(), reports,
-                                                                        locationInterface.getLastLocation()));
+                if(reports.size() > 0){
+                    recyclerViewActivities.setVisibility(View.VISIBLE);
+
+                    recyclerViewActivities.setAdapter(new ActivitiesAdapter(getActivity(), reports,
+                            locationInterface.getLastLocation()));
+                }else{
+                    noActivitiesFound.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

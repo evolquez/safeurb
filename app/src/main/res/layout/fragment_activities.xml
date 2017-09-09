@@ -33,6 +33,22 @@
 
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/txtNoActivitiesFound"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="292dp"
+        android:visibility="invisible"
+        android:text="@string/no_activities_found" />
+
     <ProgressBar
         android:id="@+id/loadingActivities"
         style="?android:attr/progressBarStyle"

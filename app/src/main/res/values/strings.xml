@@ -7,7 +7,7 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="title_location">Ubicación</string>
+    <string name="title_location">Mapa</string>
     <string name="title_activities">Actividades</string>
     <string name="report_desc_hint">Describe lo sucedido...</string>
     <string name="publish_report_title">Publicar Reporte</string>
@@ -29,5 +29,6 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="thanks_for_reporting">Gracias por reportar, tu ayuda hará de la sociedad un lugar más seguro.</string>
+    <string name="no_activities_found">No se encontraron \nactividades reportadas!</string>
 
 </resources>
