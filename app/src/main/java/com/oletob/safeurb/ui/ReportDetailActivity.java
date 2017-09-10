@@ -1,5 +1,6 @@
 package com.oletob.safeurb.ui;
 
+import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.oletob.safeurb.R;
 
 import org.w3c.dom.Text;
@@ -18,6 +20,8 @@ import org.w3c.dom.Text;
 public class ReportDetailActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mGoogleMap;
+    private LatLng location;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,8 @@ public class ReportDetailActivity extends AppCompatActivity implements OnMapRead
         if(getIntent().getStringExtra("time") != null)
             time.setText(getIntent().getStringExtra("time"));
 
+        location = new LatLng(getIntent().getDoubleExtra("lat", 18.4855), getIntent().getDoubleExtra("lng", -69.8731));
+
 
         MapView mMapView = (MapView) findViewById(R.id.reportLocation);
 
@@ -57,10 +63,10 @@ public class ReportDetailActivity extends AppCompatActivity implements OnMapRead
 
         mGoogleMap = googleMap;
 
-        LatLng current = new LatLng(18.4855, -69.8731);
-
-        CameraPosition cp = CameraPosition.builder().target(current).zoom(14).build();
+        CameraPosition cp = CameraPosition.builder().target(location).zoom(14).build();
 
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cp));
+
+        mGoogleMap.addMarker(new MarkerOptions().position(location)); // Set marker
     }
 }

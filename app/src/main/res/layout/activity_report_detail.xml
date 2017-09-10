@@ -34,18 +34,18 @@
         android:id="@+id/txtReportDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="23dp"
         android:lineSpacingExtra="3sp"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum massa eget enim vestibulum ullamcorper. Donec accumsan nibh ac ullamcorper egestas. Vestibulum a varius libero."
-        android:layout_marginTop="23dp"
         app:layout_constraintTop_toBottomOf="@+id/txtDistance"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp" />
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum massa eget enim vestibulum ullamcorper. Donec accumsan nibh ac ullamcorper egestas. Vestibulum a varius libero." />
 
     <ImageView
         android:id="@+id/locationIcon"
@@ -63,24 +63,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="24dp"
         android:textColor="#808080"
+        android:textSize="15sp"
         app:layout_constraintLeft_toRightOf="@+id/locationIcon"
         app:layout_constraintTop_toBottomOf="@+id/flayout_top"
-        tools:text="1.5 km"
-        android:layout_marginStart="4dp" />
+        tools:text="1.5 km" />
 
     <TextView
         android:id="@+id/txtTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="24dp"
         android:textColor="#808080"
-        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
-        tools:text="1 día"
+        android:textSize="15sp"
         app:layout_constraintLeft_toRightOf="@+id/iconTime"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp" />
+        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
+        tools:text="1 día" />
 
     <ImageView
         android:id="@+id/iconTime"

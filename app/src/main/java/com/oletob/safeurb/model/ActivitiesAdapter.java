@@ -53,12 +53,10 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
         holder.type.setText(( r.type.equals("assault")) ? "Asalto" : "Robo");
         holder.type.setTextColor(textColor);
 
-        holder.fullDescription.setText(r.description); // Set full description to show on details
+        holder.setReport(r); // This is for show the report detail
 
-        if(r.description.length() > Util.CARD_DESCRIPTION_LENGTH)
-            r.description = r.description.substring(0, Util.CARD_DESCRIPTION_LENGTH - 1)+" ...";
-
-        holder.description.setText(r.description);
+        holder.description.setText(((r.description.length() > Util.CARD_DESCRIPTION_LENGTH) ?
+                r.description.substring(0, Util.CARD_DESCRIPTION_LENGTH - 1)+" ..." : r.description));
 
         double[] distanceAndUnits = Util.calcDistance(new LatLng(currentLocation.getLatitude(),
                                                                  currentLocation.getLongitude()),
@@ -72,8 +70,6 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ReportHolder> {
         String prettyTime = Util.getInstance().prettyDateDiff(Calendar.getInstance().getTime(), r.reportDate);
 
         holder.time.setText(prettyTime);
-
-
     }
 
     @Override
