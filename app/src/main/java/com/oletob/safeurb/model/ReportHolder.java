@@ -37,6 +37,7 @@ public class ReportHolder extends RecyclerView.ViewHolder{
                 Intent intent = new Intent(itemView.getContext(), ReportDetailActivity.class);
 
                 intent.putExtra("type", ((report.type.equals("assault")) ? "Asalto" : "Robo"));
+                intent.putExtra("rid", report.id);
                 intent.putExtra("description", report.description);
                 intent.putExtra("distance", distance.getText().toString());
                 intent.putExtra("time", time.getText().toString());
