@@ -109,13 +109,13 @@ public class Util {
 
         // Declare variables for seconds, minutes, hours, days, weeks, months, years
 
-        long seconds    = (dateDiff / 1000);
-        long minutes    = (dateDiff / (60 * 1000));
-        long hours      = (dateDiff / (60 * 60 * 1000));
-        long days       = (dateDiff / (60 * 60 * 1000 * 24));
-        long weeks      = (dateDiff / (60 * 60 * 1000 * 24 * 7));
-        long months     = (long)(dateDiff / (60 * 60 * 1000 * 24 * 30.41666666));
-        long years      = (dateDiff / ((long) 60 * 60 * 1000 * 24 * 365));
+        long seconds    = ((dateDiff / 1000));
+        long minutes    = ((dateDiff / (60 * 1000)));
+        long hours      = ((dateDiff / (60 * 60 * 1000)));
+        long days       = ((dateDiff / (60 * 60 * 1000 * 24)));
+        long weeks      = ((dateDiff / ((60 * 60 * 1000 * 24) * 7)));
+        long months     = ((long)(dateDiff / (60 * 60 * 1000 * 24 * 30.41666666)));
+        long years      = ((dateDiff / ((long) 60 * 60 * 1000 * 24 * 365)));
 
         String prettyDate;
 

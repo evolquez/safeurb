@@ -21,6 +21,7 @@
     <string name="made_in_santo_domingo">Hecho con &#9829; en Santo Domingo por</string>
     <string name="author_linkedin_profile">https://www.linkedin.com/in/evolquez/</string>
     <string name="activities">Actividades</string>
+    <string name="report_details">Detalles del reporte</string>
 
     <string-array name="report_types">
         <item>Asalto</item>

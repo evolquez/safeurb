@@ -2,6 +2,7 @@ package com.oletob.safeurb.ui;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.oletob.safeurb.R;
 import com.oletob.safeurb.model.ActivitiesAdapter;
 import com.oletob.safeurb.model.LocationListener;
 import com.oletob.safeurb.model.Report;
+import com.oletob.safeurb.model.Util;
 
 import java.util.ArrayList;
 
@@ -70,7 +72,9 @@ public class ActivitiesFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static ActivitiesFragment newInstance(LocationListener listener) {
+
         ActivitiesFragment fragment = new ActivitiesFragment();
+
         fragment.locationInterface  = listener;
 
         return fragment;
@@ -125,7 +129,10 @@ public class ActivitiesFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    reports.add(child.getValue(Report.class));
+                    Report r = child.getValue(Report.class);
+
+                    r.setId(child.getKey());
+                    reports.add(r);
                 }
 
                 loadingActivities.setVisibility(View.INVISIBLE);

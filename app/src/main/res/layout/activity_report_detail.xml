@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.oletob.safeurb.ui.ReportDetailActivity">
+
+    <FrameLayout
+        android:id="@+id/flayout_top"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/report_title_bg_color"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingStart="16dp"
+        android:paddingTop="5dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/txtReportType"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            tools:text="Asalto"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtReportDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:lineSpacingExtra="3sp"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum massa eget enim vestibulum ullamcorper. Donec accumsan nibh ac ullamcorper egestas. Vestibulum a varius libero."
+        android:layout_marginTop="23dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtDistance"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <ImageView
+        android:id="@+id/locationIcon"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
+        app:srcCompat="@drawable/ic_report_location"
+        android:layout_marginStart="16dp" />
+
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="24dp"
+        android:textColor="#808080"
+        app:layout_constraintLeft_toRightOf="@+id/locationIcon"
+        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
+        tools:text="1.5 km"
+        android:layout_marginStart="4dp" />
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textColor="#808080"
+        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
+        tools:text="1 día"
+        app:layout_constraintLeft_toRightOf="@+id/iconTime"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp" />
+
+    <ImageView
+        android:id="@+id/iconTime"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintLeft_toRightOf="@+id/txtDistance"
+        app:layout_constraintTop_toBottomOf="@+id/flayout_top"
+        app:srcCompat="@drawable/ic_timer"
+        android:layout_marginStart="16dp" />
+
+    <ImageView
+        android:id="@+id/reportImage"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtReportDescription"
+        app:srcCompat="@android:drawable/ic_menu_report_image"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/reportLocation"
+        android:layout_width="0dp"
+        android:layout_height="330dp"
+        android:layout_gravity="center_vertical|center|end"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reportImage" />
+
+
+</android.support.constraint.ConstraintLayout>
