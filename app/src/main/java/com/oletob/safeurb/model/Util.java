@@ -136,6 +136,6 @@ public class Util {
         else
             prettyDate = years + ((years > 1) ? " años" : " año");
 
-        return prettyDate;
+        return "Hace "+prettyDate;
     }
 }

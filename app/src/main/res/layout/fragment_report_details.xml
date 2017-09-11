@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.oletob.safeurb.ui.ReportDetailsFragment">
+
+    <ImageView
+        android:id="@+id/locationIcon"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_report_location" />
+
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="#808080"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@+id/locationIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1.5 km" />
+
+    <TextView
+        android:id="@+id/txtTime"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="#808080"
+        android:textSize="13sp"
+        app:layout_constraintLeft_toRightOf="@+id/iconTime"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1 día" />
+
+    <ImageView
+        android:id="@+id/iconTime"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toRightOf="@+id/txtDistance"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_timer" />
+
+    <ImageView
+        android:id="@+id/imageReport"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@+id/txtTime"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_image" />
+
+    <TextView
+        android:id="@+id/txtSeeImageText"
+        android:layout_width="0dp"
+        android:layout_height="22dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="@string/see_image"
+        android:textColor="#808080"
+        android:textSize="13sp"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toRightOf="@+id/imageReport"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtReportDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:lineSpacingExtra="3sp"
+        android:maxLength="182"
+        android:textSize="15sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDistance"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vestibulum massa eget enim vestibulum ullamcorper. Donec accumsan nibh ac ullamcorper egestas. Vestibulum a varius libero." />
+
+    <TextView
+        android:id="@+id/txtAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="3dp"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtReportDescription"
+        android:text="@string/by_anonymous_author"
+        tools:text="Por anónimo" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/reportLocation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical|center|end"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtAuthor"
+        app:layout_constraintVertical_bias="0.0" />
+
+</android.support.constraint.ConstraintLayout>
