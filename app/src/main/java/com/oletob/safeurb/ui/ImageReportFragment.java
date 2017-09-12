@@ -84,6 +84,14 @@ public class ImageReportFragment extends Fragment {
 
         final ImageView image = (ImageView) mView.findViewById(R.id.imageReport);
 
+
+        mView.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getFragmentManager().popBackStack();
+            }
+        });
+
         Glide.with(getActivity()).load(reportImageUrl).listener(new RequestListener<Drawable>() {
             @Override
             public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
