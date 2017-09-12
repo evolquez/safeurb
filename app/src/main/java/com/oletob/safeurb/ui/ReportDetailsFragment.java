@@ -91,6 +91,8 @@ public class ReportDetailsFragment extends Fragment implements OnMapReadyCallbac
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((ReportDetailActivity)getActivity()).setActionBarTitle("Detalles del reporte");
+
         mStorageRef = FirebaseStorage.getInstance().getReference();
         mAuth       = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();

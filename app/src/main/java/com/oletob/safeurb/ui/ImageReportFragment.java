@@ -72,6 +72,7 @@ public class ImageReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_image_report, container, false);
 
@@ -82,8 +83,8 @@ public class ImageReportFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((ReportDetailActivity)getActivity()).setActionBarTitle("Imagen del reporte");
         final ImageView image = (ImageView) mView.findViewById(R.id.imageReport);
-
 
         mView.findViewById(R.id.btnClose).setOnClickListener(new View.OnClickListener() {
             @Override

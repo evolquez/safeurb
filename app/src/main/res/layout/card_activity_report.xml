@@ -49,12 +49,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/txtReportType"
                 tools:text="Asalto a mano armada, hombre resultó herido." />
 
-            <!--<TextView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:id="@+id/txtFullReportDescription"
-                android:visibility="invisible" />-->
-
             <ImageView
                 android:id="@+id/reportLocationIcon"
                 android:layout_width="0dp"
@@ -82,20 +76,20 @@
                 android:layout_width="0dp"
                 android:layout_height="19dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginRight="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/txtTime"
-                card_view:srcCompat="@drawable/ic_timer" />
+                card_view:srcCompat="@drawable/ic_timer"
+                app:layout_constraintLeft_toRightOf="@+id/txtDistance"
+                android:layout_marginLeft="10dp" />
 
             <TextView
                 android:id="@+id/txtTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginRight="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:text="5 días" />
+                tools:text="5 días"
+                app:layout_constraintLeft_toRightOf="@+id/reportTimeIcon"
+                android:layout_marginLeft="4dp" />
 
         </android.support.constraint.ConstraintLayout>
 

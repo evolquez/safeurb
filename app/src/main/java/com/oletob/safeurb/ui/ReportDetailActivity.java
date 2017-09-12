@@ -80,4 +80,12 @@ public class ReportDetailActivity extends AppCompatActivity implements ReportDet
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+    /**
+     * Set the action bar title for this activity
+     * @param title
+     */
+    public void setActionBarTitle(String title){
+        getSupportActionBar().setTitle(title);
+    }
 }
